@@ -5,14 +5,14 @@ import ChatBody from "./chatBody";
 import ChatFooter from "./chatFooter";
 
 function Chat() {
-  return (
-    <Box>
-      <ChatHeader />
-      <Divider />
-      <ChatBody />
-      <Divider />
-      <ChatFooter />
-    </Box>
-  );
+	return (
+		<Box>
+			<ChatHeader />
+			<Divider />
+			<ChatBody />
+			<Divider />
+			<ChatFooter />
+		</Box>
+	);
 }
 export default Chat;

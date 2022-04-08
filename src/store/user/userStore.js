@@ -2,36 +2,56 @@ import produce from "immer";
 import { createContext, useReducer } from "react";
 
 const intialUserState = {
-  allusers: [],
-  userSelfDetails: {},
+	allusers: [],
+	userSelfDetails: {},
+	requestedUsers: [],
+	friendList: [],
 };
 
 const UserStore = createContext(intialUserState);
 
 const userReducer = (state, action) => {
-  const { type } = action;
-  switch (type) {
-    case "SAVE_ALL_USERS":
-      return produce(state, (draft) => {
-        draft.allusers = action.payload;
-      });
-    case "USER_SELF_DETAILS":
-      return produce(state, (draft) => {
-        draft.userSelfDetails = action.payload;
-      });
-
-    default:
-      break;
-  }
+	const { type } = action;
+	switch (type) {
+		case "SAVE_ALL_USERS":
+			return produce(state, (draft) => {
+				if (action.payload) {
+					draft.allusers = JSON.parse(JSON.stringify(action.payload));
+				}
+			});
+		case "USER_SELF_DETAILS":
+			return produce(state, (draft) => {
+				if (action.payload) {
+					draft.userSelfDetails = JSON.parse(JSON.stringify(action.payload));
+				}
+			});
+		case "ADD_REQUESTED_USER":
+			return produce(
+				state,
+				(draft) => void draft.requestedUsers.push(action.payload)
+			);
+		case "SAVE_ALL_REQUESTED_USERS":
+			return produce(
+				state,
+				(draft) => void (draft.requestedUsers = action.payload)
+			);
+		case "ADD_FRIEND":
+			return produce(
+				state,
+				(draft) => void draft.friendList.push(action.payload)
+			);
+		default:
+			break;
+	}
 };
 
 const UserProvider = ({ children }) => {
-  const [userStore, userDispatch] = useReducer(userReducer, intialUserState);
-  return (
-    <UserStore.Provider value={{ userStore, userDispatch }}>
-      {children}
-    </UserStore.Provider>
-  );
+	const [userStore, userDispatch] = useReducer(userReducer, intialUserState);
+	return (
+		<UserStore.Provider value={{ userStore, userDispatch }}>
+			{children}
+		</UserStore.Provider>
+	);
 };
 
 export { UserProvider, UserStore };
