@@ -37,7 +37,7 @@ const useStyle = makeStyles((theme) => ({
 function AddFriendList() {
 	const classes = useStyle();
 	//==================== Context store
-	const { userStore } = useContext(UserStore);
+	const { userDispatch, userStore } = useContext(UserStore);
 
 	// ==================== User defined states
 	const [allusers, setAllUser] = useState([]);
@@ -54,6 +54,11 @@ function AddFriendList() {
 			case "Accept":
 				socket.emit("acceptFriendRequest", userStore.userSelfDetails, user);
 				break;
+			case "Friend":
+				userDispatch({
+					type: "SAVE_SELECTED_USER",
+					payload: user,
+				});
 			default:
 				return;
 		}
@@ -109,7 +114,7 @@ function AddFriendList() {
 											className={classes.addFriendListStyle}
 											onClick={(e) => handleFriendOperation(e, user)}
 										>
-											{user.Status}
+											{user.Status == "Friend" ? "Message" : user.Status}
 										</Button>
 										{user.Status !== "Friend" ? (
 											<Button

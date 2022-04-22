@@ -6,6 +6,8 @@ const intialUserState = {
 	userSelfDetails: {},
 	requestedUsers: [],
 	friendList: [],
+	selectedUser: {},
+	blockedUsers: [],
 };
 
 const UserStore = createContext(intialUserState);
@@ -39,6 +41,21 @@ const userReducer = (state, action) => {
 			return produce(
 				state,
 				(draft) => void draft.friendList.push(action.payload)
+			);
+		case "SAVE_ALL_FRIENDS":
+			return produce(
+				state,
+				(draft) => void (draft.friendList = action.payload)
+			);
+		case "SAVE_SELECTED_USER":
+			return produce(
+				state,
+				(draft) => void (draft.selectedUser = action.payload)
+			);
+		case "SAVE_BLOCKED_USER":
+			return produce(
+				state,
+				(draft) => void (draft.blockedUsers = action.payload)
 			);
 		default:
 			break;

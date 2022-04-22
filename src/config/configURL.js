@@ -11,4 +11,5 @@ export const API_URL = {
 	addFriendUrl: `${BASE_URL}/user/add-friend`,
 	getUserSelfDetails: `${BASE_URL}/user/get-user-self-details`,
 	getUsersByStatus: `${BASE_URL}/user/get-users-by-status`,
+	getBlockedUser: `${BASE_URL}/user/get-blocked-user`,
 };

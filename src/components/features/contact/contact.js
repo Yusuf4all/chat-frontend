@@ -14,6 +14,7 @@ import {
 import { UserStore } from "../../../store/user/userStore";
 import { socket } from "../../../common/socket/socket";
 import { friendOperationSocket } from "../../../common/socket/friendOperationSocket";
+import BlockedUsers from "./blockedUsers";
 
 const useStyle = makeStyles((theme) => ({
 	chatContact: {
@@ -61,6 +62,7 @@ function Contact() {
 					<ChatContactList path="/chat" />
 					<FriendContactList path="/friend-list" />
 					<AddFriendList path="/add-frinend-list" />
+					<BlockedUsers path="/blocked-users" />
 				</Router>
 			</Box>
 		</Box>
