@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import AuthenticationHeader from "./authenticationHeader";
-import { Typography, TextField, Box } from "@mui/material";
+import { Typography, InputBase, Box, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import GoogleButton from "../../../common/component/googleButton";
 import FacebookButton from "../../../common/component/facebookButton";
@@ -21,9 +21,11 @@ import VerifyOTPModal from "../modals/verifyOTPModal";
 const useStyle = makeStyles((theme) => ({
 	form: {
 		width: "500px",
-		margin: "auto",
 		boxShadow: "rgb(0 0 0 / 25%) 0px 14px 28px, rgb(0 0 0 / 22%) 0px 10px 10px",
 		padding: "30px",
+		background: " linear-gradient(to right, #8e44ad, #ff9f95)",
+		color: theme.palette.black.main,
+		marginTop: "20px",
 	},
 	formInputControl: {
 		display: "flex",
@@ -32,19 +34,35 @@ const useStyle = makeStyles((theme) => ({
 	},
 
 	formFooter: {
-		marginTop: "10px",
-		fontSize: "16px",
+		marginTop: "5px",
+		fontSize: "14px",
+		color: "black",
 		"& a": {
-			color: "#5072bd",
+			color: "blue",
 			textDecoration: "none",
 		},
 	},
 	formForgot: {
 		fontSize: "14px",
 		"& a": {
-			color: "#5072bd",
+			color: "blue",
 			textDecoration: "none",
 		},
+	},
+	selectError: {
+		color: "#D62F2F",
+		fontSize: "12px",
+		margin: "2px 0px 0px 10px",
+	},
+	errorBorder: {
+		border: "1px solid red",
+	},
+	inputBase: {
+		fontSize: "14px",
+		backgroundColor: "white",
+		borderRadius: "5px",
+		color: "black",
+		padding: "10px 10px 5px 15px",
 	},
 }));
 
@@ -143,60 +161,86 @@ function Signin() {
 	};
 	return (
 		<React.Fragment>
-			<AuthenticationHeader title="Sign in to your account" />
-			<form onSubmit={handleSubmit(handleOnSubmit)} className={classes.form}>
-				<Box className={classes.formInputControl}>
-					<label>Email Address</label>
-					<TextField
-						type="email"
-						name="Email"
-						{...register("Email")}
-						size="small"
-						error={errors?.Email}
-						helperText={errors?.Email?.message}
-					/>
-				</Box>
+			<Grid
+				container
+				direction="column"
+				alignItems="center"
+				justify="center"
+				style={{ minHeight: "100vh" }}
+			>
+				<Grid item xs={6}>
+					<form
+						onSubmit={handleSubmit(handleOnSubmit)}
+						className={classes.form}
+					>
+						<AuthenticationHeader title="Sign in to your account" />
+						<Box className={classes.formInputControl}>
+							<InputBase
+								className={`${classes.inputBase} ${
+									errors?.Email ? classes.errorBorder : ""
+								}`}
+								type="email"
+								name="Email"
+								placeholder="Email Address*"
+								{...register("Email")}
+								size="small"
+							/>
+							<Box component="span" className={classes.selectError}>
+								{errors?.Email?.message}
+							</Box>
+						</Box>
 
-				<Box className={classes.formInputControl}>
-					<label>Password</label>
-					<TextField
-						type="password"
-						name="Password"
-						{...register("Password")}
-						size="small"
-						error={errors?.Password}
-						helperText={errors?.Password?.message}
-					/>
-				</Box>
-				<Box>
-					<Typography className={classes.formForgot}>
-						<Link to="/auth/forgot-password"> Forgot Password?</Link>
-					</Typography>
-				</Box>
+						<Box className={classes.formInputControl}>
+							<InputBase
+								className={`${classes.inputBase} ${
+									errors?.Password ? classes.errorBorder : ""
+								}`}
+								type="password"
+								name="Password"
+								placeholder="Password*"
+								{...register("Password")}
+								size="small"
+							/>
+							<Box component="span" className={classes.selectError}>
+								{errors?.Password?.message}
+							</Box>
+						</Box>
+						<Box>
+							<Typography className={classes.formForgot}>
+								<Link to="/auth/forgot-password"> Forgot Password?</Link>
+							</Typography>
+						</Box>
 
-				<Box className={classes.formInputControl}>
-					<AuthButton buttonText="SIGN IN" />
-				</Box>
+						<Box className={classes.formInputControl}>
+							<AuthButton buttonText="SIGN IN" />
+						</Box>
+						<Grid container justifyContent="center" spacing={1}>
+							<Grid item md={6}>
+								<Box className={classes.formInputControl}>
+									<GoogleButton
+										label="Google"
+										responseGoogle={responseGoogle}
+									/>
+								</Box>
+							</Grid>
+							<Grid item md={6}>
+								<Box className={classes.formInputControl}>
+									<FacebookButton
+										label="Facebook"
+										responseFacebook={responseFacebook}
+									/>
+								</Box>
+							</Grid>
+						</Grid>
 
-				<Box className={classes.formInputControl}>
-					<GoogleButton
-						label="Sign In with Google"
-						responseGoogle={responseGoogle}
-					/>
-				</Box>
-
-				<Box className={classes.formInputControl}>
-					<FacebookButton
-						label="Sign In with Facebook"
-						responseFacebook={responseFacebook}
-					/>
-				</Box>
-				<Box className={classes.formInputControl}>
-					<Typography className={classes.formFooter}>
-						Create Account <Link to="/auth/sign-up">SignUp</Link>
-					</Typography>
-				</Box>
-			</form>
+						<Box className={classes.formInputControl}>
+							<Typography className={classes.formFooter}>
+								Create Account <Link to="/auth/sign-up">SignUp</Link>
+							</Typography>
+						</Box>
+					</form>
+				</Grid>
+			</Grid>
 			<VerifyEmailModal
 				isEmailModalOpen={isEmailModalOpen}
 				handleEmailModal={handleEmailModal}

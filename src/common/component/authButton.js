@@ -3,9 +3,9 @@ import { makeStyles } from "@mui/styles";
 import { Button } from "@mui/material";
 const useStyle = makeStyles((theme) => ({
 	submit: {
-		padding: "10px 0px",
-		fontSize: "16px",
-		marginTop: "30px",
+		padding: "5px 0px",
+		fontSize: "14px",
+		marginTop: "5px",
 	},
 }));
 

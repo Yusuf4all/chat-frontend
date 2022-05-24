@@ -1,6 +1,20 @@
 import { createTheme } from "@mui/material/styles";
 
 const lightTheme = createTheme({
+	overrides: {
+		// MuiMenu: {
+		// 	list: {
+		// 		backgroundColor: "red",
+		// 	},
+		// },
+		// // Applied to the <li> elements
+		// MuiMenuItem: {
+		// 	root: {
+		// 		color: "red",
+		// 		fontSize: 12,
+		// 	},
+		// },
+	},
 	palette: {
 		background: {
 			default: "#241642",
@@ -21,7 +35,9 @@ const lightTheme = createTheme({
 	typography: {
 		h1: {},
 		h2: {},
-		h3: {},
+		h3: {
+			fontSize: "28px",
+		},
 		h4: {},
 		h5: {
 			color: "#FFFF",

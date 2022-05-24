@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { makeStyles } from "@mui/styles";
 import Chat from "../chat/chat";
 import Contact from "../contact/contact";
 import { Grid, Typography } from "@mui/material";
 import { socket } from "../../../common/socket/socket";
 import { toast } from "react-toastify";
+import NoChat from "../chat/noChat";
+import { UserStore } from "../../../store/user/userStore";
 
 const useStyles = makeStyles((theme) => ({
 	parentHead: {
@@ -25,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
 
 function WebAppContainer() {
 	const classes = useStyles();
+	const { userStore, userDispatch } = useContext(UserStore);
+	console.log("test", userStore);
 
 	useEffect(() => {
 		initializeSocketOperation();
@@ -46,7 +50,11 @@ function WebAppContainer() {
 					<Contact />
 				</Grid>
 				<Grid item md={9} style={{ backgroundColor: "#100130" }}>
-					<Chat />
+					{Object.keys(userStore.selectedUser).length > 0 ? (
+						<Chat />
+					) : (
+						<NoChat />
+					)}
 				</Grid>
 			</Grid>
 		</React.Fragment>

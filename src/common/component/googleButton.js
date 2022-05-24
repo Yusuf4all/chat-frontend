@@ -7,9 +7,10 @@ const useStyle = makeStyles((theme) => ({
 		display: "flex",
 		justifyContent: "center",
 		padding: "10px 0px",
-		fontSize: "16px !important",
+		fontSize: "14px !important",
 		color: "#524444 !important",
 		boxShadow: "none !important",
+		width: "100%",
 		border: "1px solid rgb(170 175 191) !important",
 	},
 }));
