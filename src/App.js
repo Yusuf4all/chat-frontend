@@ -16,7 +16,7 @@ function App() {
 			<CssBaseline />
 			<React.Suspense fallback={<h1>Loading</h1>}>
 				<Box>
-					<Router>
+					<Router basename="/ChatAPP">
 						<Home exact path="/" />
 						<Authentication path="/auth/*" />
 						<Application path="/web-chat/*" />
